@@ -116,7 +116,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('MYSQL_DATABASE','gdhistory'),
         'USER': os.getenv('MYSQL_USER','gdhistory'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD','password'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD',None),
         'HOST': os.getenv('MYSQL_HOST','127.0.0.1'),
         'PORT': os.getenv('MYSQL_PORT','3306'),
         'OPTIONS': {
