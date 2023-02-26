@@ -8,42 +8,75 @@
 	.right > span {
 		margin-right: 2em;
 	}
+
+	.main {
+		width: 100vw;
+		height: 90vh;
+		display: flex;
+		margin: 0;
+		justify-content: space-evenly;
+		padding-top: 1rem;
+		background: rgb(255,255,255);
+		background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(0,74,255,0.4) 100%);
+	}
+
+	.card-stats {
+		background: transparent;
+		color: #fff;
+		border: solid 1px;
+		border-radius: 20px;
+		padding: 0.5rem;
+		backdrop-filter: saturate(1.7);
+	}
+
+	.card-stats * {
+		color: #fff;
+	}
+
+	.table-stats {
+		border-collapse: separate;
+  		border-spacing: 0.5rem 1rem;
+	}
+
+	.card-stats-header {
+		font-size: large;
+		font-weight: bold;
+		padding: 0.5rem;	
+	}
 </style>
-<div class="row">
-	<p class="lead">Welcome</p>
-</div>
+<div class="main bg-dark">
 <div class="row">
 	<div class="col mb-3">
-		<div class="card">
-			<div class="card-header lead">
+		<div class="card-stats">
+			<div class="card-stats-header">
 				Statistics
 			</div>
-			<div class="card-body">
-				<table class="table">
+			<div>
+				<table class="table-stats">
 					<tbody>
 						<tr>
 							<td>Levels in our database:</td>
-							<td class="right"><span id="level-count"></span></td>
+							<td><span id="level-count"></span></td>
 						</tr>
 						<tr>
 							<td>Creators in our database:</td>
-							<td class="right"><span id="gduser-count"></span></td>
+							<td><span id="gduser-count"></span></td>
 						</tr>
 						<tr>
 							<td>Songs in our database:</td>
-							<td class="right"><span id="song-count"></span></td>
+							<td><span id="song-count"></span></td>
 						</tr>
 						<tr>
 							<td>Submitted save files:</td>
-							<td  class="right"><span id="save-count"></span></td>
+							<td><span id="save-count"></span></td>
 						</tr>
 						<tr>
 							<td>Processed server requests:</td>
-							<td class="right"><span id="request-count"></span></td>
+							<td><span id="request-count"></span></td>
 						</tr>
 						<tr>
 							<td>Stored level strings:</td>
-							<td class="right"><span id="level-string-count"></span></td>
+							<td><span id="level-string-count"></span></td>
 						</tr>
 					</tbody>
 				</table>
@@ -51,12 +84,12 @@
 		</div>
 	</div>
 	<div class="col mb-3">
-		<div class="card">
-			<div class="card-header lead">
+		<div class="card-stats">
+			<div class="card-stats-header">
 				Recently added levels
 			</div>
-			<div class="card-body">
-				<table class="table">
+			<div>
+				<table class="table-stats">
 					<tbody>
 						{% for record in recently_added %}
 						<tr>
@@ -69,13 +102,14 @@
 			</div>
 		</div>
 	</div>
+	<!--
 	<div class="col mb-3">
-		<div class="card">
-			<div class="card-header lead">
+		<div class="card-stats">
+			<div class="card-stats-header">
 				Recently updated levels
 			</div>
-			<div class="card-body">
-				<table class="table">
+			<div>
+				<table class="table-stats">
 					<tbody>
 						{% for record in recently_updated %}
 						<tr>
@@ -88,6 +122,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 <div class="row">
 	<div class="col mb-3">
@@ -103,9 +138,10 @@
 					</div>
 					<button type="submit" class="btn btn-primary">Save</button>
 				</form>
-			</div>
+			</div>-->
 		</div>
 	</div>
+	
 	<div class="col mb-3">
 		<!-- placeholder to fill space -->
 	</div>
@@ -113,10 +149,8 @@
 		<!-- placeholder to fill space -->
 	</div>
 </div>
-<div class="row">
-	<p class="lead">Disclaimer</p>
-	<p>geometrydash.eu is <b>not</b> affiliated, associated, authorized, endorsed by, or in any way officially connected with <b>RobTop Games AB</b>, or any of its subsidiaries or its affiliates. All of the content on this website is <b>unofficial</b> and should be treated as such. The official RobTop Games AB website can be found at <a href="http://www.robtopgames.com">http://www.robtopgames.com</a>.</p>
-</div>
+<p class="lead" style="padding: 0">Disclaimer</p>
+<p>geometrydash.eu is <b>not</b> affiliated, associated, authorized, endorsed by, or in any way officially connected with <b>RobTop Games AB</b>, or any of its subsidiaries or its affiliates. All of the content on this website is <b>unofficial</b> and should be treated as such. The official RobTop Games AB website can be found at <a href="http://www.robtopgames.com">http://www.robtopgames.com</a>.</p>
 
 <div class="modal" tabindex="-1" id="saveModal">
   <div class="modal-dialog">
