@@ -14,23 +14,31 @@
 		height: 90vh;
 		display: flex;
 		margin: 0;
-		justify-content: space-evenly;
 		padding-top: 1rem;
 		background: rgb(255,255,255);
 		background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(0,74,255,0.4) 100%);
+		justify-content: flex-start;
+    	align-items: center;
+    	flex-direction: column;
 	}
 
 	.card-stats {
 		background: transparent;
 		color: #fff;
-		border: solid 1px;
 		border-radius: 20px;
 		padding: 0.5rem;
-		backdrop-filter: saturate(1.7);
+		background-color: #333;
+		margin: 2rem;
+		margin-top: 7rem;
+	}
+
+	.card-stats th {
+		padding-left: 2rem;
 	}
 
 	.card-stats * {
 		color: #fff;
+		text-align: center;
 	}
 
 	.table-stats {
@@ -41,41 +49,119 @@
 	.card-stats-header {
 		font-size: large;
 		font-weight: bold;
-		padding: 0.5rem;	
+		padding: 0.5rem;
 	}
+
+	.title {
+		color: #fff;
+		font-weight: lighter;
+		font-size: 7rem;
+		background: transparent;
+		transition: all 0.5s;
+		height: max-content;
+		padding: 3rem;
+		border-radius: 3rem;
+	}
+
+	.title:hover {
+		backdrop-filter: saturate(2);
+		font-size: 8rem;
+	}
+
+	.title::after {
+        content: '';
+        position: absolute;
+        width: 80%;
+        transform: scaleX(0);
+        height: 5px;
+        bottom: 1.7rem;
+        left: 10%;
+        border-radius: 3px;
+        background-color: #fff;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+
+      .title:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+	  .title-desc {
+		color: rgba(255, 255, 255, 0.75);
+		transition: all 0.5s;
+		font-weight: lighter;
+		font-size: 2rem;
+	  }
+
+	  .title-desc:hover {
+		color: rgba(255, 255, 255, 1);
+		font-size: 2.2rem;
+	  }
+
+	  .other-stats {
+	    display: flex;
+    	align-items: center;
+    	height: max-content;
+    	justify-content: center;
+		padding: 2rem;
+		width: 100vw;
+		background-color: #ddd;
+	  }
+
+	  .other-stats div {
+	  	margin-top: 0;
+		margin-bottom: 0;
+	  }
+
+	  .save-now {
+	  	margin: 0;
+		width: fit-content;
+		height: fit-content;
+		padding: 2rem;
+	  }
+
+	  .disclaimer {
+	  	background-color: #333;
+		width: 100vw;
+		margin-bottom: 0;
+		padding: 2rem;
+	  }
+
+	  .disclaimer * {
+	   margin: 0;
+	   color: #fff;
+	  }
 </style>
 <div class="main bg-dark">
+<h1 class="title">GD History</h1>
+<h2 class="title-desc">Documenting the things that have passed.</h2>
 <div class="row">
 	<div class="col mb-3">
 		<div class="card-stats">
+		<!--
 			<div class="card-stats-header">
 				Statistics
-			</div>
+			</div>-->
 			<div>
 				<table class="table-stats">
+				<thead>
+					<tr>
+						<th>Levels in our database</th>
+						<th>Creators in our database</th>
+						<th>Songs in our database</th>
+						<th>Submitted save files</th>
+						<th>Processed server requests</th>
+						<th>Stored level strings</th>
+					</tr>
+				</thead>
 					<tbody>
 						<tr>
-							<td>Levels in our database:</td>
 							<td><span id="level-count"></span></td>
-						</tr>
-						<tr>
-							<td>Creators in our database:</td>
 							<td><span id="gduser-count"></span></td>
-						</tr>
-						<tr>
-							<td>Songs in our database:</td>
 							<td><span id="song-count"></span></td>
-						</tr>
-						<tr>
-							<td>Submitted save files:</td>
 							<td><span id="save-count"></span></td>
-						</tr>
-						<tr>
-							<td>Processed server requests:</td>
 							<td><span id="request-count"></span></td>
-						</tr>
-						<tr>
-							<td>Stored level strings:</td>
 							<td><span id="level-string-count"></span></td>
 						</tr>
 					</tbody>
@@ -83,7 +169,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="col mb-3">
+	</div>
+</div>
+<div class="other-stats">
 		<div class="card-stats">
 			<div class="card-stats-header">
 				Recently added levels
@@ -100,57 +188,44 @@
 					</tbody>
 				</table>
 			</div>
+	</div>
+	<div class="card-stats save-now">
+		<div class="card-stats-header">
+			Save level now
+	</div>
+	<div>
+			<form id="saveForm">
+				<div class="mb-3">
+					<label for="online_id" class="form-label">Level ID</label>
+					<input class="form-control" type="text" id="online_id" name="online_id">
+				</div>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</form>
 		</div>
 	</div>
-	<!--
-	<div class="col mb-3">
-		<div class="card-stats">
-			<div class="card-stats-header">
-				Recently updated levels
-			</div>
-			<div>
-				<table class="table-stats">
-					<tbody>
-						{% for record in recently_updated %}
-						<tr>
-							<td>{{ record.level_name }}</td>
-							<td><a href="{% url 'level' record.level.online_id %}">{{ record.level.online_id }}</a></td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
+	<div class="card-stats">
+		<div class="card-stats-header">
+			Recently updated levels
+		</div>
+		<div>
+			<table class="table-stats">
+				<tbody>
+					{% for record in recently_updated %}
+					<tr>
+						<td>{{ record.level_name }}</td>
+						<td><a href="{% url 'level' record.level.online_id %}">{{ record.level.online_id }}</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
+
+<div class="disclaimer">
+	<p class="lead">Disclaimer</p>
+	<p>geometrydash.eu is <b>not</b> affiliated, associated, authorized, endorsed by, or in any way officially connected with <b>RobTop Games AB</b>, or any of its subsidiaries or its affiliates. All of the content on this website is <b>unofficial</b> and should be treated as such. The official RobTop Games AB website can be found at <a href="http://www.robtopgames.com">http://www.robtopgames.com</a>.</p>
 </div>
-<div class="row">
-	<div class="col mb-3">
-		<div class="card">
-			<div class="card-header lead">
-				Save level now
-			</div>
-			<div class="card-body">
-				<form id="saveForm">
-					<div class="mb-3">
-						<label for="online_id" class="form-label">Level ID</label>
-						<input class="form-control" type="text" id="online_id" name="online_id">
-					</div>
-					<button type="submit" class="btn btn-primary">Save</button>
-				</form>
-			</div>-->
-		</div>
-	</div>
-	
-	<div class="col mb-3">
-		<!-- placeholder to fill space -->
-	</div>
-	<div class="col mb-3">
-		<!-- placeholder to fill space -->
-	</div>
-</div>
-<p class="lead" style="padding: 0">Disclaimer</p>
-<p>geometrydash.eu is <b>not</b> affiliated, associated, authorized, endorsed by, or in any way officially connected with <b>RobTop Games AB</b>, or any of its subsidiaries or its affiliates. All of the content on this website is <b>unofficial</b> and should be treated as such. The official RobTop Games AB website can be found at <a href="http://www.robtopgames.com">http://www.robtopgames.com</a>.</p>
 
 <div class="modal" tabindex="-1" id="saveModal">
   <div class="modal-dialog">
